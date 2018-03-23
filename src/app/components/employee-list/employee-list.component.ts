@@ -10,6 +10,7 @@ import { IEmployee } from '../../Employee';
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css']
 })
+
 export class EmployeeListComponent implements OnInit {
 
   @select() employees;
