@@ -1,0 +1,51 @@
+<h6>Add Employee:</h6>
+<form (ngSubmit)="onSubmit()" #todoForm="ngForm">
+  <div class="form-row">
+    <div class="col-auto">
+      <input type="text" class="form-control" placeholder="Name" id="Name" [(ngModel)]="model.name" name="name"
+        #description="ngModel">
+    </div>
+    <div class="col-auto">
+      <input type="text" class="form-control" placeholder="City" id="City" [(ngModel)]="model.city" name="city"
+        #responsible="ngModel">
+    </div>
+    <div class="col-auto">
+      <select class="form-control" id="Designation" [(ngModel)]="model.designation" name="designation" #priority="ngModel">
+        <option value="manager">manager</option>
+        <option value="software engineer">software engineer</option>
+        <option value="tester">tester</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+  </div>
+</form>
+<br/>
+<h6>Todo List:</h6>
+<div *ngIf="(employees | async)?.lenght != 0">
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <td>#</td>
+        <td>Employee Name</td>
+        <td>City</td>
+        <td>Designation</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of employees | async">
+          <td><span (click)="toggleEmployee(e)" [class.completed]="e.isCompleted">{{ e.id }}</span></td>
+          <td><span (click)="toggleEmployee(e)" [class.completed]="e.isCompleted">{{ e.name }}</span></td>
+          <td><span (click)="toggleEmployee(e)" [class.completed]="e.isCompleted">{{ e.city }}</span></td>
+          <td>
+            <span *ngIf="e.designation == 'manager'" class="badge badge-success">manager</span>
+            <span *ngIf="e.designation == 'software engineer'" class="badge badge-warning">software engineer</span>
+            <span *ngIf="e.designation == 'tester'" class="badge badge-danger">tester</span>
+          </td>
+          <td><button class="btn btn-primary" (click)="removeEmployee(e)">delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
